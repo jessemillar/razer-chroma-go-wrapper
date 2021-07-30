@@ -66,7 +66,7 @@ func main() {
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
-func makeRequest(method string, url string, body []byte) (*http.Response, error) {
+func makeRequest(method string, url string, body []byte) (string, error) {
 	fmt.Println("URL:>", url)
 
 	// TODO Do I need to do anything special to handle not passing a body?
@@ -77,7 +77,7 @@ func makeRequest(method string, url string, body []byte) (*http.Response, error)
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
@@ -87,7 +87,7 @@ func makeRequest(method string, url string, body []byte) (*http.Response, error)
 	bodyString := string(bodyBytes)
 	fmt.Println(bodyString)
 
-	return resp, nil
+	return bodyString, nil
 }
 
 func structToBytes(theStruct interface{}) []byte {
@@ -140,13 +140,8 @@ func createApp() {
 		log.Fatalln(err)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err.Error())
-	}
-
 	var data appCreationResponse
-	err = json.Unmarshal(body, &data)
+	err = json.Unmarshal([]byte(resp), &data)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -172,13 +167,8 @@ func createEffect(effect effectCreationRequest) string {
 		log.Fatalln(err)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err.Error())
-	}
-
 	var data effectCreationResponse
-	err = json.Unmarshal(body, &data)
+	err = json.Unmarshal([]byte(resp), &data)
 	if err != nil {
 		panic(err.Error())
 	}
