@@ -102,9 +102,12 @@ func structToBytes(theStruct interface{}) []byte {
 func pingHeartbeat() {
 	// TODO Make a way to end this
 	for range time.Tick(time.Second * 1) {
-		_, err := makeRequest(http.MethodPut, getSessionURL()+"/heartbeat", nil)
-		if err != nil {
-			log.Fatalln(err)
+		// Only ping if we have a session ID
+		if sessionID > 0 {
+			_, err := makeRequest(http.MethodPut, getSessionURL()+"/heartbeat", nil)
+			if err != nil {
+				log.Fatalln(err)
+			}
 		}
 	}
 }
