@@ -69,7 +69,7 @@ func main() {
 func makeRequest(method string, url string, body []byte) (string, error) {
 	fmt.Println("URL:", url)
 	fmt.Println("Method:", method)
-	fmt.Println("Body:", body)
+	fmt.Println("Body:", string(body))
 
 	// TODO Do I need to do anything special to handle not passing a body?
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
