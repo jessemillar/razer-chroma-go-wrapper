@@ -13,6 +13,7 @@ import (
 
 const baseURL = "https://chromasdk.io:54236"
 
+var quit = make(chan bool)
 var sessionID int
 
 type appCreationRequest struct {
@@ -54,6 +55,8 @@ func main() {
 	// TODO Create lighting effect
 	// TODO Apply lighting effect
 	// TODO Test latency/request limits
+
+	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
 func makeRequest(method string, url string, body []byte) (*http.Response, error) {
