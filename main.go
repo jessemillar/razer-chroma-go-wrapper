@@ -80,12 +80,12 @@ func makeRequest(method string, url string, body []byte) (*http.Response, error)
 		return nil, err
 	}
 
-	// bodyBytes, err := ioutil.ReadAll(resp.Body)
-	// if err != nil {
-	// log.Fatal(err)
-	// }
-	// bodyString := string(bodyBytes)
-	// fmt.Println(bodyString)
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	bodyString := string(bodyBytes)
+	fmt.Println(bodyString)
 
 	return resp, nil
 }
