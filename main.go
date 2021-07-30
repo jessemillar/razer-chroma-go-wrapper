@@ -97,7 +97,8 @@ func convertColor(r int, g int, b int, a int) int {
 	// return ((a << 0) | (b << 8) | (g << 16) | (r << 24))
 	// return ((a << 24) | (b << 16) | (g << 8) | (r << 0))
 	// color := ((a << 16) | (b << 8) | (g << 4) | (r << 0))
-	color := ((a << 0) | (b << 4) | (g << 8) | (r << 16))
+	// color := ((a << 0) | (b << 4) | (g << 8) | (r << 16))
+	color := ((a << 24) | (b << 16) | (g << 8) | (r << 0))
 	fmt.Println(color)
 	return color
 }
