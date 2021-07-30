@@ -72,6 +72,8 @@ func makeRequest(method string, url string, body []byte) (io.Reader, error) {
 	}
 	defer resp.Body.Close()
 
+	result := resp.Body
+
 	fmt.Println("response Status:", resp.Status)
 	fmt.Println("response Headers:", resp.Header)
 	respBody, err := ioutil.ReadAll(resp.Body)
@@ -80,7 +82,7 @@ func makeRequest(method string, url string, body []byte) (io.Reader, error) {
 	}
 	fmt.Println("response Body:", string(respBody))
 
-	return resp.Body, nil
+	return result, nil
 }
 
 func pingHeartbeat() {
