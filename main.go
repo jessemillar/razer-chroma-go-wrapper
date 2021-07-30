@@ -63,13 +63,13 @@ func main() {
 
 	fmt.Println("Got session", sessionID)
 
+	// TODO Find a better way to do this instead of sleeping
 	fmt.Println("Waiting...")
 	time.Sleep(2 * time.Second)
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
 		parsedColor, _ := colorx.ParseHexColor("#34ebd8")
-		// createAndApplyEffect(convertColor(211, 3, 252, 255))
 		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 	}
 
