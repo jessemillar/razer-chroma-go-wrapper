@@ -84,7 +84,8 @@ func main() {
 
 			byteToInt, _ := strconv.Atoi(string(convertedColor))
 		*/
-		createAndApplyEffect(convertColor(255, 0, 0, 255))
+		// createAndApplyEffect(convertColor(255, 0, 0, 255))
+		createAndApplyEffect(255)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
