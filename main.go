@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/icza/gox/imagex/colorx"
 )
 
 const baseURL = "https://chromasdk.io:54236"
@@ -66,15 +68,16 @@ func main() {
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
-		createAndApplyEffect(convertColor(211, 3, 252, 255))
+		parsedColor, _ := colorx.ParseHexColor("#ff0000")
+		// createAndApplyEffect(convertColor(211, 3, 252, 255))
+		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
-func convertColor(r int, g int, b int, a int) int {
-	color := ((b << 16) | (g << 8) | (r << 0))
-	return color
+func convertColor(r int, g int, b int) int {
+	return ((b << 16) | (g << 8) | (r << 0))
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
