@@ -67,7 +67,23 @@ func getSessionURL() string {
 }
 
 func createApp() {
-	app := appCreationRequest{}
+	app := appCreationRequest{
+		Title:       "Razer Chroma Go Wrapper",
+		Description: "Poots",
+		Author: {
+			Name:    "Jesse Millar",
+			Contact: "jessemillar.com",
+		},
+		DeviceSupported: []string{
+			"keyboard",
+			"mouse",
+			"headset",
+			"mousepad",
+			"keypad",
+			"chromalink",
+		},
+		Category: "application",
+	}
 
 	resp, err := http.Post(getSessionURL()+"/razer/chromasdk", app)
 	if err != nil {
