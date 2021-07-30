@@ -92,7 +92,7 @@ func main() {
 
 		createAndApplyEffect(color)
 
-		color = color + 20
+		color = color + 200
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
