@@ -4,14 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"image/color"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/shabbyrobe/imgx/rgba"
 )
 
 const baseURL = "https://chromasdk.io:54236"
@@ -69,23 +66,25 @@ func main() {
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
-		// color := convertColor(227, 186, 75, 0)
-		testColor := color.RGBA{
-			R: 0,
-			G: 255,
-			B: 0,
-			A: 255,
-		}
+		/*
+			// color := convertColor(227, 186, 75, 0)
+			testColor := color.RGBA{
+				R: 0,
+				G: 255,
+				B: 0,
+				A: 255,
+			}
 
-		convertedColor, err := rgba.CastToBytes([]color.RGBA{testColor})
-		if err != nil {
-			panic(err)
-		}
+			convertedColor, err := rgba.CastToBytes([]color.RGBA{testColor})
+			if err != nil {
+				panic(err)
+			}
 
-		fmt.Println(convertedColor)
+			fmt.Println(convertedColor)
 
-		byteToInt, _ := strconv.Atoi(string(convertedColor))
-		createAndApplyEffect(byteToInt)
+			byteToInt, _ := strconv.Atoi(string(convertedColor))
+		*/
+		createAndApplyEffect(4291559679)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
@@ -93,6 +92,7 @@ func main() {
 
 func convertColor(iR int, iG int, iB int, iA int) int {
 	return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
+	// fmt.Println(a | (b << 8) | (g << 16) | (r << 24))
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
