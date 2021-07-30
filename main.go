@@ -68,7 +68,7 @@ func main() {
 	// s1 := rand.NewSource(time.Now().UnixNano())
 	// r1 := rand.New(s1)
 
-	color := 0
+	// color := 0
 
 	for range time.Tick(time.Millisecond * 100) {
 		// color, err:=imgx.CastToBytes(colors []color.RGBA)
@@ -88,14 +88,20 @@ func main() {
 
 		// byteToInt, _ := strconv.Atoi(string(byteColor))
 
+		color := convertColor(0, 255, 0, 0)
+
 		fmt.Println(color)
 
 		createAndApplyEffect(color)
 
-		color = color + 200
+		// color = color + 200
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
+}
+
+func convertColor(iR int, iG int, iB int, iA int) int {
+	return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
