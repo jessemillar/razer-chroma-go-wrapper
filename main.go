@@ -95,7 +95,8 @@ func convertColor(r int, g int, b int, a int) int {
 	// return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
 	// return (a | (b << 8) | (g << 16) | (r << 24))
 	// return ((a << 0) | (b << 8) | (g << 16) | (r << 24))
-	return ((a << 24) | (b << 16) | (g << 8) | (r << 0))
+	// return ((a << 24) | (b << 16) | (g << 8) | (r << 0))
+	return ((a << 16) | (b << 8) | (g << 4) | (r << 0))
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
