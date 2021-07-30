@@ -85,7 +85,7 @@ func main() {
 			byteToInt, _ := strconv.Atoi(string(convertedColor))
 		*/
 		// createAndApplyEffect(convertColor(255, 0, 0, 255))
-		createAndApplyEffect(convertColor(0, 255, 0, 255))
+		createAndApplyEffect(convertColor(0, 0, 255, 255))
 		// createAndApplyEffect(255)
 	}
 
