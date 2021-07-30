@@ -65,36 +65,12 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Done waiting")
 
-	// s1 := rand.NewSource(time.Now().UnixNano())
-	// r1 := rand.New(s1)
-
-	// color := 0
-
 	for range time.Tick(time.Millisecond * 100) {
-		// color, err:=imgx.CastToBytes(colors []color.RGBA)
-		// r1.Intn(256))
-
-		/*
-			translatedColor, err := colorx.ParseHexColor("#ff0000")
-			if err != nil {
-				panic(err)
-			}
-
-			byteColor, err := imgx.CastToBytes(translatedColor)
-			if err != nil {
-				panic(err)
-			}
-		*/
-
-		// byteToInt, _ := strconv.Atoi(string(byteColor))
-
-		color := convertColor(227, 186, 75, 255)
+		color := convertColor(227, 186, 75, 0)
 
 		fmt.Println(color)
 
 		createAndApplyEffect(color)
-
-		// color = color + 200
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
