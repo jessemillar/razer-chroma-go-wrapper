@@ -53,16 +53,22 @@ type effectApplyRequest struct {
 }
 
 func main() {
+	fmt.Println("Launching...")
+
 	createApp()
 
 	go pingHeartbeat()
 
-	fmt.Println(sessionID)
+	fmt.Println("Got session", sessionID)
 
+	fmt.Println("Waiting...")
 	time.Sleep(2 * time.Second)
+	fmt.Println("Done waiting")
 
 	// s1 := rand.NewSource(time.Now().UnixNano())
 	// r1 := rand.New(s1)
+
+	color := 0
 
 	for range time.Tick(time.Millisecond * 100) {
 		// color, err:=imgx.CastToBytes(colors []color.RGBA)
@@ -80,20 +86,13 @@ func main() {
 			}
 		*/
 
-		// byteColor := make([]byte, 4)
-		// byteColor[0] = strconv.Itoa(r1.Intn(256))
-		byteColor := []byte{
-			0,
-			0,
-			255,
-			255,
-		}
+		// byteToInt, _ := strconv.Atoi(string(byteColor))
 
-		byteToInt, _ := strconv.Atoi(string(byteColor))
+		fmt.Println(color)
 
-		fmt.Println(byteToInt)
+		createAndApplyEffect(color)
 
-		createAndApplyEffect(byteToInt)
+		color = color + 1
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
