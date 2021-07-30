@@ -34,7 +34,7 @@ type appCreationResponse struct {
 	URI       string `json:"uri"`
 }
 
-type effectCreateRequest struct {
+type effectCreationRequest struct {
 	Effect string      `json:"effect"`
 	Param  effectParam `json:"param"`
 }
@@ -145,7 +145,7 @@ func createApp() {
 }
 
 func createAndApplyEffect(color int) {
-	effect := effectCreateRequest{
+	effect := effectCreationRequest{
 		Effect: "CHROMA_STATIC",
 		Param: effectParam{
 			Color: color,
@@ -156,7 +156,7 @@ func createAndApplyEffect(color int) {
 	applyEffect(effectID)
 }
 
-func createEffect(effect effectCreateRequest) string {
+func createEffect(effect effectCreationRequest) string {
 	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/chromalink", structToBytes(effect))
 	if err != nil {
 		log.Fatalln(err)
@@ -166,6 +166,8 @@ func createEffect(effect effectCreateRequest) string {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	fmt.Println(body)
 
 	var data effectCreationResponse
 	err = json.Unmarshal(body, &data)
