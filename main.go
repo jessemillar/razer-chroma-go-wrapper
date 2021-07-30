@@ -65,8 +65,8 @@ func main() {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 
-	for range time.Tick(time.Second * 1) {
-		createAndApplyEffect(r1.Intn(100))
+	for range time.Tick(time.Millisecond * 100) {
+		createAndApplyEffect(r1.Intn(256))
 	}
 
 	// TODO Test latency/request limits
