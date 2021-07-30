@@ -132,7 +132,7 @@ func createApp() {
 		Category: "application",
 	}
 
-	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/razer/chromasdk", structToBytes(app))
+	resp, err := makeRequest(http.MethodPost, baseURL+"/razer/chromasdk", structToBytes(app))
 	if err != nil {
 		log.Fatalln(err)
 	}
