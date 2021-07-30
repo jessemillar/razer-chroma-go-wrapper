@@ -91,6 +91,8 @@ func main() {
 
 		byteToInt, _ := strconv.Atoi(string(byteColor))
 
+		fmt.Println(byteToInt)
+
 		createAndApplyEffect(byteToInt)
 	}
 
