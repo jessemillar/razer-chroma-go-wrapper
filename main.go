@@ -67,11 +67,10 @@ func main() {
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
-	fmt.Println("URL:>", url)
+	fmt.Println("URL:", url)
 
 	// TODO Do I need to do anything special to handle not passing a body?
-	var jsonStr = []byte(body)
-	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
@@ -85,7 +84,7 @@ func makeRequest(method string, url string, body []byte) (string, error) {
 		log.Fatal(err)
 	}
 	bodyString := string(bodyBytes)
-	fmt.Println(bodyString)
+	fmt.Println("Response:", bodyString)
 
 	return bodyString, nil
 }
