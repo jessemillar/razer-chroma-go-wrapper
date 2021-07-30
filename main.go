@@ -66,44 +66,14 @@ func main() {
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
-		/*
-			// color := convertColor(227, 186, 75, 0)
-			testColor := color.RGBA{
-				R: 0,
-				G: 255,
-				B: 0,
-				A: 255,
-			}
-
-			convertedColor, err := rgba.CastToBytes([]color.RGBA{testColor})
-			if err != nil {
-				panic(err)
-			}
-
-			fmt.Println(convertedColor)
-
-			byteToInt, _ := strconv.Atoi(string(convertedColor))
-		*/
-		// createAndApplyEffect(convertColor(255, 0, 0, 255))
-		// createAndApplyEffect(convertColor(0, 0, 255, 255))
-		// createAndApplyEffect(convertColor(252, 186, 3, 255))
 		createAndApplyEffect(convertColor(211, 3, 252, 255))
-		// createAndApplyEffect(255)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
 func convertColor(r int, g int, b int, a int) int {
-	// return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
-	// return (a | (b << 8) | (g << 16) | (r << 24))
-	// return ((a << 0) | (b << 8) | (g << 16) | (r << 24))
-	// return ((a << 24) | (b << 16) | (g << 8) | (r << 0))
-	// color := ((a << 16) | (b << 8) | (g << 4) | (r << 0))
-	// color := ((a << 0) | (b << 4) | (g << 8) | (r << 16))
-	// color := ((a << 24) | (b << 16) | (g << 8) | (r << 0))
 	color := ((b << 16) | (g << 8) | (r << 0))
-	fmt.Println(color)
 	return color
 }
 
