@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
@@ -61,7 +62,12 @@ func main() {
 
 	time.Sleep(2 * time.Second)
 
-	createAndApplyEffect(200)
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+
+	for range time.Tick(time.Second * 1) {
+		createAndApplyEffect(r1.Intn(100))
+	}
 
 	// TODO Test latency/request limits
 
