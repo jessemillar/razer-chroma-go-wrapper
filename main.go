@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -52,10 +53,33 @@ func main() {
 	// TODO Test latency/request limits
 }
 
+func makeRequest(method string, url string, body string) string {
+	fmt.Println("URL:>", url)
+
+	// TODO Do I need to do anything special to handle not passing a body?
+	var jsonStr = []byte(body)
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	respBody, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(respBody))
+
+	return body
+}
+
 func pingHeartbeat() {
 	// TODO Make a way to end this
 	for range time.Tick(time.Second * 1) {
-		resp, err := http.Put(getSessionURL() + "/heartbeat")
+		resp, err := makeRequest(http.MethodPut, getSessionURL()+"/heartbeat")
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -85,7 +109,7 @@ func createApp() {
 		Category: "application",
 	}
 
-	resp, err := http.Post(getSessionURL()+"/razer/chromasdk", app)
+	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/razer/chromasdk", app)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -105,15 +129,14 @@ func createApp() {
 }
 
 func createEffect() {
-	resp, err := http.Post(getSessionURL()+"/chromalink", nil)
+	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/chromalink", nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
 func applyEffect() {
-	// TODO Handle Put
-	resp, err := http.Put(getSessionURL()+"/chromalink", nil)
+	resp, err := makeRequest(http.MethodPut, getSessionURL()+"/chromalink", nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
