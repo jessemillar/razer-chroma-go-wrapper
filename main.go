@@ -4,11 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"image/color"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/shabbyrobe/imgx/rgba"
 )
 
 const baseURL = "https://chromasdk.io:54236"
@@ -66,11 +69,23 @@ func main() {
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
-		color := convertColor(227, 186, 75, 0)
+		// color := convertColor(227, 186, 75, 0)
+		testColor := color.RGBA{
+			R: 0,
+			G: 255,
+			B: 0,
+			A: 255,
+		}
 
-		fmt.Println(color)
+		convertedColor, err := rgba.CastToBytes([]color.RGBA{testColor})
+		if err != nil {
+			panic(err)
+		}
 
-		createAndApplyEffect(color)
+		fmt.Println(convertedColor)
+
+		byteToInt, _ := strconv.Atoi(string(convertedColor))
+		createAndApplyEffect(byteToInt)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
