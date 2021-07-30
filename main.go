@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
@@ -62,11 +61,37 @@ func main() {
 
 	time.Sleep(2 * time.Second)
 
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
+	// s1 := rand.NewSource(time.Now().UnixNano())
+	// r1 := rand.New(s1)
 
 	for range time.Tick(time.Millisecond * 100) {
-		createAndApplyEffect(r1.Intn(256))
+		// color, err:=imgx.CastToBytes(colors []color.RGBA)
+		// r1.Intn(256))
+
+		/*
+			translatedColor, err := colorx.ParseHexColor("#ff0000")
+			if err != nil {
+				panic(err)
+			}
+
+			byteColor, err := imgx.CastToBytes(translatedColor)
+			if err != nil {
+				panic(err)
+			}
+		*/
+
+		// byteColor := make([]byte, 4)
+		// byteColor[0] = strconv.Itoa(r1.Intn(256))
+		byteColor := []byte{
+			0,
+			0,
+			255,
+			255,
+		}
+
+		byteToInt, _ := strconv.Atoi(string(byteColor))
+
+		createAndApplyEffect(byteToInt)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut

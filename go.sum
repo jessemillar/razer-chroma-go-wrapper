@@ -1,0 +1,4 @@
+github.com/icza/gox v0.0.0-20210726201659-cd40a3f8d324 h1:vgRDKn3I9l793fk4V5omw4ADVOXS1F8F6HBvi+ZXNdM=
+github.com/icza/gox v0.0.0-20210726201659-cd40a3f8d324/go.mod h1:VbcN86fRkkUMPX2ufM85Um8zFndLZswoIW1eYtpAcVk=
+github.com/shabbyrobe/imgx v0.0.0-20200307030904-8093a71ec74e h1:qAqXrTL2oDSAJ9Ibb2ntUgUfHIK8n1wf6Hlwrzq52CI=
+github.com/shabbyrobe/imgx v0.0.0-20200307030904-8093a71ec74e/go.mod h1:vFQ6LJMh+zYOk1/k4+Nlyd9KAeBFrFHQ7FRYRGzop3g=
