@@ -69,17 +69,16 @@ func main() {
 		createAndApplyEffect(r1.Intn(256))
 	}
 
-	// TODO Test latency/request limits
-
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
-	fmt.Println("URL:", url)
-	fmt.Println("Method:", method)
-	fmt.Println("Body:", string(body))
+	/*
+		fmt.Println("URL:", url)
+		fmt.Println("Method:", method)
+		fmt.Println("Body:", string(body))
+	*/
 
-	// TODO Do I need to do anything special to handle not passing a body?
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
 	req.Header.Set("Content-Type", "application/json")
 
@@ -94,7 +93,7 @@ func makeRequest(method string, url string, body []byte) (string, error) {
 		log.Fatal(err)
 	}
 	bodyString := string(bodyBytes)
-	fmt.Println("Response:", bodyString)
+	// fmt.Println("Response:", bodyString)
 
 	return bodyString, nil
 }
