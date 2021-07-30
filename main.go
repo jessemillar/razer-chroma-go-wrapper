@@ -68,7 +68,7 @@ func main() {
 	fmt.Println("Done waiting")
 
 	for range time.Tick(time.Millisecond * 100) {
-		parsedColor, _ := colorx.ParseHexColor("#ff0000")
+		parsedColor, _ := colorx.ParseHexColor("#34ebd8")
 		// createAndApplyEffect(convertColor(211, 3, 252, 255))
 		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 	}
