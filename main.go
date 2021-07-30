@@ -9,8 +9,6 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/icza/gox/imagex/colorx"
 )
 
 const baseURL = "https://chromasdk.io:54236"
@@ -90,12 +88,7 @@ func main() {
 
 		// byteToInt, _ := strconv.Atoi(string(byteColor))
 
-		hex, err := colorx.ParseHexColor("#e3ba4b")
-		if err != nil {
-			panic(err)
-		}
-
-		color := convertColor(int(hex.R), int(hex.G), int(hex.B), int(hex.A))
+		color := convertColor(227, 186, 75, 255)
 
 		fmt.Println(color)
 
