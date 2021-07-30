@@ -167,8 +167,6 @@ func createEffect(effect effectCreationRequest) string {
 		panic(err.Error())
 	}
 
-	fmt.Println(resp.Body)
-
 	var data effectCreationResponse
 	err = json.Unmarshal(body, &data)
 	if err != nil {
@@ -183,7 +181,7 @@ func applyEffect(effectID string) {
 		ID: effectID,
 	}
 
-	_, err := makeRequest(http.MethodPut, getSessionURL()+"/chromalink", structToBytes(requestBody))
+	_, err := makeRequest(http.MethodPut, getSessionURL()+"/effect", structToBytes(requestBody))
 	if err != nil {
 		log.Fatalln(err)
 	}
