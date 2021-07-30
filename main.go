@@ -59,6 +59,8 @@ func main() {
 
 	fmt.Println(sessionID)
 
+	time.Sleep(2 * time.Second)
+
 	createAndApplyEffect(200)
 
 	// TODO Test latency/request limits
