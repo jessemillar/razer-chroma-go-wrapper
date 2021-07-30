@@ -84,15 +84,15 @@ func main() {
 
 			byteToInt, _ := strconv.Atoi(string(convertedColor))
 		*/
-		createAndApplyEffect(4291559679)
+		createAndApplyEffect(convertColor(255, 0, 0, 255))
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
 }
 
-func convertColor(iR int, iG int, iB int, iA int) int {
-	return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
-	// fmt.Println(a | (b << 8) | (g << 16) | (r << 24))
+func convertColor(r int, g int, b int, a int) int {
+	// return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
+	return (a | (b << 8) | (g << 16) | (r << 24))
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
