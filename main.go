@@ -35,10 +35,17 @@ type appCreationResponse struct {
 }
 
 type effectCreateRequest struct {
-	Effect string `json:"effect"`
-	Param  struct {
-		Color int `json:"color"`
-	} `json:"param"`
+	Effect string      `json:"effect"`
+	Param  effectParam `json:"param"`
+}
+
+type effectCreationResponse struct {
+	ID     string `json:"id"`
+	Result int    `json:"result"`
+}
+
+type effectParam struct {
+	Color int `json:"color"`
 }
 
 type effectApplyRequest struct {
@@ -52,8 +59,8 @@ func main() {
 
 	fmt.Println(sessionID)
 
-	// TODO Create lighting effect
-	// TODO Apply lighting effect
+	createAndApplyEffect(200)
+
 	// TODO Test latency/request limits
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
@@ -74,21 +81,15 @@ func makeRequest(method string, url string, body []byte) (*http.Response, error)
 	}
 
 	return resp, nil
-	/*
-		defer resp.Body.Close()
+}
 
-		result := resp.Body
+func structToBytes(theStruct interface{}) []byte {
+	resultString, err := json.Marshal(theStruct)
+	if err != nil {
+		panic(err)
+	}
 
-		fmt.Println("response Status:", resp.Status)
-		fmt.Println("response Headers:", resp.Header)
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-		fmt.Println("response Body:", string(respBody))
-
-		return result, nil
-	*/
+	return resultString
 }
 
 func pingHeartbeat() {
@@ -124,12 +125,7 @@ func createApp() {
 		Category: "application",
 	}
 
-	appString, err := json.Marshal(app)
-	if err != nil {
-		panic(err)
-	}
-
-	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/razer/chromasdk", appString)
+	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/razer/chromasdk", structToBytes(app))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -148,15 +144,44 @@ func createApp() {
 	sessionID = data.SessionID
 }
 
-func createEffect() {
-	_, err := makeRequest(http.MethodPost, getSessionURL()+"/chromalink", nil)
+func createAndApplyEffect(color int) {
+	effect := effectCreateRequest{
+		Effect: "CHROMA_STATIC",
+		Param: effectParam{
+			Color: color,
+		},
+	}
+
+	effectID := createEffect(effect)
+	applyEffect(effectID)
+}
+
+func createEffect(effect effectCreateRequest) string {
+	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/chromalink", structToBytes(effect))
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var data effectCreationResponse
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return data.ID
 }
 
-func applyEffect() {
-	_, err := makeRequest(http.MethodPut, getSessionURL()+"/chromalink", nil)
+func applyEffect(effectID string) {
+	requestBody := effectApplyRequest{
+		ID: effectID,
+	}
+
+	_, err := makeRequest(http.MethodPut, getSessionURL()+"/chromalink", structToBytes(requestBody))
 	if err != nil {
 		log.Fatalln(err)
 	}
