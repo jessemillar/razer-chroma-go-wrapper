@@ -167,7 +167,7 @@ func createEffect(effect effectCreationRequest) string {
 		panic(err.Error())
 	}
 
-	fmt.Println(body)
+	fmt.Println(resp.Body)
 
 	var data effectCreationResponse
 	err = json.Unmarshal(body, &data)
