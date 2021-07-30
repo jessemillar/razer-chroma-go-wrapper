@@ -39,13 +39,13 @@ type effectCreationRequest struct {
 	Param  effectParam `json:"param"`
 }
 
+type effectParam struct {
+	Color int `json:"color"`
+}
+
 type effectCreationResponse struct {
 	ID     string `json:"id"`
 	Result int    `json:"result"`
-}
-
-type effectParam struct {
-	Color int `json:"color"`
 }
 
 type effectApplyRequest struct {
@@ -79,6 +79,13 @@ func makeRequest(method string, url string, body []byte) (*http.Response, error)
 	if err != nil {
 		return nil, err
 	}
+
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	bodyString := string(bodyBytes)
+	fmt.Println(bodyString)
 
 	return resp, nil
 }
