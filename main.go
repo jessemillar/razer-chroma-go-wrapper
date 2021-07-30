@@ -84,8 +84,8 @@ func main() {
 
 			byteToInt, _ := strconv.Atoi(string(convertedColor))
 		*/
-		// createAndApplyEffect(convertColor(255, 0, 0, 255))
-		createAndApplyEffect(255)
+		createAndApplyEffect(convertColor(255, 0, 0, 255))
+		// createAndApplyEffect(255)
 	}
 
 	<-quit // Keep the program alive until we kill it with a keyboard shortcut
@@ -93,7 +93,9 @@ func main() {
 
 func convertColor(r int, g int, b int, a int) int {
 	// return ((iA << 24) | (iR << 16) | (iG << 8) | iB)
-	return (a | (b << 8) | (g << 16) | (r << 24))
+	// return (a | (b << 8) | (g << 16) | (r << 24))
+	// return ((a << 0) | (b << 8) | (g << 16) | (r << 24))
+	return ((a << 24) | (b << 16) | (g << 8) | (r << 0))
 }
 
 func makeRequest(method string, url string, body []byte) (string, error) {
