@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -57,7 +56,7 @@ func main() {
 	// TODO Test latency/request limits
 }
 
-func makeRequest(method string, url string, body []byte) (io.Reader, error) {
+func makeRequest(method string, url string, body []byte) (*http.Response, error) {
 	fmt.Println("URL:>", url)
 
 	// TODO Do I need to do anything special to handle not passing a body?
@@ -70,19 +69,23 @@ func makeRequest(method string, url string, body []byte) (io.Reader, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
-	result := resp.Body
+	return resp, nil
+	/*
+		defer resp.Body.Close()
 
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
-	respBody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	fmt.Println("response Body:", string(respBody))
+		result := resp.Body
 
-	return result, nil
+		fmt.Println("response Status:", resp.Status)
+		fmt.Println("response Headers:", resp.Header)
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Println("response Body:", string(respBody))
+
+		return result, nil
+	*/
 }
 
 func pingHeartbeat() {
@@ -128,7 +131,7 @@ func createApp() {
 		log.Fatalln(err)
 	}
 
-	body, err := ioutil.ReadAll(resp)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err.Error())
 	}
