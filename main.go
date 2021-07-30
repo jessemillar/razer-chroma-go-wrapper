@@ -86,7 +86,8 @@ func main() {
 		*/
 		// createAndApplyEffect(convertColor(255, 0, 0, 255))
 		// createAndApplyEffect(convertColor(0, 0, 255, 255))
-		createAndApplyEffect(convertColor(252, 186, 3, 255))
+		// createAndApplyEffect(convertColor(252, 186, 3, 255))
+		createAndApplyEffect(convertColor(211, 3, 252, 255))
 		// createAndApplyEffect(255)
 	}
 
