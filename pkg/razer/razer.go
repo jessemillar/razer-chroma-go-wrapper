@@ -42,7 +42,7 @@ func CreateApp() {
 		Description: "An HTTP server wrapper around the Razer Chroma REST API to enable easy scripting",
 		Author: appCreationRequestAuthor{
 			Name:    "Jesse Millar",
-			Contact: "jessemillar.com",
+			Contact: "https://github.com/jessemillar/razer-chroma-http-wrapper",
 		},
 		DeviceSupported: []string{
 			"keyboard",
