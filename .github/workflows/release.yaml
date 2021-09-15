@@ -1,4 +1,4 @@
-name: Release Binary
+name: Build and Release Binary
 
 on:
   push:
@@ -6,10 +6,13 @@ on:
     - 'master'
 
 jobs:
-
-  steps:
-        - uses: actions/checkout@master
-        - uses: actions/setup-go@v2
-          with:
-            go-version: '1.16.6' # The Go version to download (if necessary) and use.
-        - run: go build -ldflags -H=windowsgui
+  build:
+    runs-on: ubuntu-16.04
+    name: Build and Release
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16.6' # The Go version to download (if necessary) and use
+      - run: go build -ldflags -H=windowsgui
