@@ -122,9 +122,14 @@ func ApplyEffect(effectID string) {
 }
 
 func FlashColor(color string, flashCount string, flashDuration string, flashInterval string) {
+	// Match interval to duration if only duration is supplied
+	if len(flashDuration) > 0 && len(flashInterval) == 0 {
+		flashInterval = flashDuration
+	}
+
 	defaultFlashCount := 5
-	defaultFlashDuration := 1000
-	defaultFlashInterval := 1500
+	defaultFlashDuration := 750
+	defaultFlashInterval := 750
 
 	flashCountInt := utils.StringToInt(flashCount, defaultFlashCount)
 	flashDurationInt := utils.StringToInt(flashDuration, defaultFlashDuration)
@@ -141,7 +146,7 @@ func FlashColor(color string, flashCount string, flashDuration string, flashInte
 				SetColor(color)
 				time.Sleep(time.Duration(flashDurationInt) * time.Millisecond)
 
-				if i < flashDurationInt-1 {
+				if i != flashDurationInt-1 {
 					fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
 					SetColor("000000")
 					time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
