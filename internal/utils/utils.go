@@ -3,14 +3,11 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 
-	"github.com/jessemillar/razer-chroma-go-wrapper/pkg/razer"
 	"github.com/spf13/viper"
 )
 
@@ -72,33 +69,4 @@ func ReadConfigFile() error {
 	}
 
 	return nil
-}
-
-func FlashColor(color string, flashCount string, flashDuration string, flashInterval string) {
-	defaultFlashCount := 5
-	defaultFlashDuration := 1000
-	defaultFlashInterval := 1500
-
-	flashCountInt := StringToInt(flashCount, defaultFlashCount)
-	flashDurationInt := StringToInt(flashDuration, defaultFlashDuration)
-	flashIntervalInt := StringToInt(flashInterval, defaultFlashInterval)
-
-	if flashCountInt == 0 {
-		razer.SetColor(color)
-		fmt.Println("Setting color to " + color)
-	} else {
-		// Use an anonymous func to allow a quick HTTP return to the client
-		go func() {
-			for i := 0; i < flashCountInt; i++ {
-				fmt.Printf("Setting color to %s for %d\n", color, time.Duration(flashDurationInt)*time.Millisecond)
-				razer.SetColor(color)
-				time.Sleep(time.Duration(flashDurationInt) * time.Millisecond)
-				fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
-				razer.SetColor("000000")
-				time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
-			}
-
-			razer.SetColor()
-		}()
-	}
 }

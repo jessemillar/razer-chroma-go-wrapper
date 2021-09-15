@@ -2,6 +2,7 @@ package razer
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -117,5 +118,34 @@ func ApplyEffect(effectID string) {
 	_, err := utils.MakeRequest(http.MethodPut, GetSessionURL()+"/effect", utils.StructToBytes(requestBody))
 	if err != nil {
 		log.Fatalln(err)
+	}
+}
+
+func FlashColor(color string, flashCount string, flashDuration string, flashInterval string) {
+	defaultFlashCount := 5
+	defaultFlashDuration := 1000
+	defaultFlashInterval := 1500
+
+	flashCountInt := utils.StringToInt(flashCount, defaultFlashCount)
+	flashDurationInt := utils.StringToInt(flashDuration, defaultFlashDuration)
+	flashIntervalInt := utils.StringToInt(flashInterval, defaultFlashInterval)
+
+	if flashCountInt == 0 {
+		SetColor(color)
+		fmt.Println("Setting color to " + color)
+	} else {
+		// Use an anonymous func to allow a quick HTTP return to the client
+		go func() {
+			for i := 0; i < flashCountInt; i++ {
+				fmt.Printf("Setting color to %s for %d\n", color, time.Duration(flashDurationInt)*time.Millisecond)
+				SetColor(color)
+				time.Sleep(time.Duration(flashDurationInt) * time.Millisecond)
+				fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
+				SetColor("000000")
+				time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
+			}
+
+			SetColor("")
+		}()
 	}
 }
