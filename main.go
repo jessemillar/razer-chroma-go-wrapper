@@ -22,12 +22,14 @@ func main() {
 	}
 
 	razer.CreateApp()
-	razer.SetDefaultColor(viper.GetString("default_color"))
 	go razer.PingHeartbeat()
 
 	// TODO Find a better way to do this instead of sleeping
 	fmt.Println("Waiting for Razer session...")
 	time.Sleep(3 * time.Second)
+
+	razer.SetDefaultColor(viper.GetString("default_color"))
+	razer.SetColor("")
 
 	fmt.Println("Starting server...")
 
