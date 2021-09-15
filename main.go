@@ -81,7 +81,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.PUT("/color/:color", changeColor)
+	e.GET("/color/:color", changeColor)
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
