@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,9 +16,9 @@ import (
 	"github.com/spf13/viper"
 )
 
-func main() {
-	go systray.Run(onReady, onExit)
+var echoServer *echo.Echo
 
+func main() {
 	fmt.Println("Launching...")
 
 	err := utils.ReadConfigFile()
@@ -26,6 +27,7 @@ func main() {
 	}
 
 	razer.CreateApp()
+	// TODO Kill this as part of cleanup
 	go razer.PingHeartbeat()
 
 	// TODO Find a better way to do this instead of sleeping
@@ -37,14 +39,16 @@ func main() {
 
 	fmt.Println("Starting server...")
 
-	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
+	echoServer := echo.New()
+	echoServer.GET("/", func(c echo.Context) error {
 		// TODO Make a doc page for the default handler
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/color/:color", handlers.SolidColor)
-	e.GET("/flash/color/:color", handlers.FlashColor)
-	e.Logger.Fatal(e.Start(":" + viper.GetString("server_port")))
+	echoServer.GET("/color/:color", handlers.SolidColor)
+	echoServer.GET("/flash/color/:color", handlers.FlashColor)
+	go echoServer.Logger.Fatal(echoServer.Start(":" + viper.GetString("server_port")))
+
+	systray.Run(onReady, onExit)
 }
 
 func onReady() {
@@ -59,4 +63,16 @@ func onReady() {
 
 func onExit() {
 	// clean up here
+	fmt.Println("Shutting down")
+
+	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
+	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
+	// quit := make(chan os.Signal, 1)
+	// signal.Notify(quit, os.Interrupt)
+	// <-quit
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	if err := echoServer.Shutdown(ctx); err != nil {
+		echoServer.Logger.Fatal(err)
+	}
 }
