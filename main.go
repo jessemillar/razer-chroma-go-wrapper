@@ -46,7 +46,7 @@ func main() {
 	})
 	echoServer.GET("/color/:color", handlers.SolidColor)
 	echoServer.GET("/flash/color/:color", handlers.FlashColor)
-	go echoServer.Logger.Fatal(echoServer.Start(":" + viper.GetString("server_port")))
+	go func() { echoServer.Logger.Fatal(echoServer.Start(":" + viper.GetString("server_port"))) }()
 
 	systray.Run(onReady, onExit)
 }
