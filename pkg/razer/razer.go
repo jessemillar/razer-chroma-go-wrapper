@@ -37,10 +37,9 @@ func GetSessionURL() string {
 }
 
 func CreateApp() {
-	// TODO Make these values real values
 	app := appCreationRequest{
-		Title:       "Razer Chroma Go Wrapper",
-		Description: "Poots",
+		Title:       "Razer Chroma HTTP Wrapper",
+		Description: "An HTTP server wrapper around the Razer Chroma REST API to enable easy scripting",
 		Author: appCreationRequestAuthor{
 			Name:    "Jesse Millar",
 			Contact: "jessemillar.com",
