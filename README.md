@@ -6,6 +6,8 @@ The Razer Chroma HTTP Wrapper is a system tray application that exists to wrap t
 
 ## Quickstart
 
+> TODO Provide links to the binary
+
 1. Download the binary
 1. Run the binary
 1. Hit one of the endpoints listed below
@@ -21,7 +23,7 @@ https://localhost:<port>/flash/color/<hex-color>?count=3&duration=1000&interval=
 
 ## Configuration
 
-Configuration is handled by the `config.toml` file. This file needs to be in the same directory as the `razer-chroma-http-wrapper` executable. Supported configuration values are defined below:
+Configuration is handled by the [`config.toml`](./config.toml) file. This file needs to be in the same directory as the `razer-chroma-http-wrapper` executable. Supported configuration values are defined below:
 
 - `server_port`: An integer value specifying which port to listen on for HTTP GET requests
 - `default_color`: A hex color value that the Razer peripheral defaults to when not currently displaying an alert
