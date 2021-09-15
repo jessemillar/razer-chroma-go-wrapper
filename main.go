@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/icza/gox/imagex/colorx"
 	"github.com/labstack/echo/v4"
 )
 
@@ -80,7 +81,15 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	e.PUT("/color/:color", changeColor)
 	e.Logger.Fatal(e.Start(":1323"))
+}
+
+func changeColor(c echo.Context) error {
+	id := c.Param("color")
+	parsedColor, _ := colorx.ParseHexColor("#34ebd8")
+	createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
+	return c.String(http.StatusOK, id)
 }
 
 func convertColor(r int, g int, b int) int {
