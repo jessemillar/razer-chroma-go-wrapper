@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/getlantern/systray"
+	"github.com/getlantern/systray/example/icon"
 	"github.com/jessemillar/razer-chroma-go-wrapper/internal/handlers"
 	"github.com/jessemillar/razer-chroma-go-wrapper/internal/utils"
 	"github.com/jessemillar/razer-chroma-go-wrapper/pkg/razer"
@@ -14,6 +16,8 @@ import (
 )
 
 func main() {
+	systray.Run(onReady, onExit)
+
 	fmt.Println("Launching...")
 
 	err := utils.ReadConfigFile()
@@ -41,4 +45,18 @@ func main() {
 	e.GET("/color/:color", handlers.SolidColor)
 	e.GET("/flash/color/:color", handlers.FlashColor)
 	e.Logger.Fatal(e.Start(":" + viper.GetString("server_port")))
+}
+
+func onReady() {
+	systray.SetIcon(icon.Data)
+	systray.SetTitle("Awesome App")
+	systray.SetTooltip("Pretty awesome超级棒")
+	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
+
+	// Sets the icon of a menu item. Only available on Mac and Windows.
+	mQuit.SetIcon(icon.Data)
+}
+
+func onExit() {
+	// clean up here
 }
