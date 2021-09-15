@@ -46,6 +46,7 @@ func main() {
 	})
 	echoServer.GET("/color/:color", handlers.SolidColor)
 	echoServer.GET("/flash/color/:color", handlers.FlashColor)
+	// TODO Kill this goroutine gracefully
 	go func() { echoServer.Logger.Fatal(echoServer.Start(":" + viper.GetString("server_port"))) }()
 
 	systray.Run(onReady, onExit)
@@ -53,11 +54,12 @@ func main() {
 
 func onReady() {
 	systray.SetIcon(icon.Data)
-	systray.SetTitle("Awesome App")
-	systray.SetTooltip("Pretty awesome超级棒")
+	systray.SetTitle("Razer Chroma HTTP Wrapper")
+	systray.SetTooltip("Razer Chroma HTTP Wrapper")
 	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
 
 	// Sets the icon of a menu item. Only available on Mac and Windows.
+	// TODO Set this to a custom icon
 	mQuit.SetIcon(icon.Data)
 
 	go func() {
