@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/icza/gox/imagex/colorx"
 	"github.com/labstack/echo/v4"
 )
 
@@ -68,10 +67,12 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Done waiting")
 
-	for range time.Tick(time.Millisecond * 100) {
-		parsedColor, _ := colorx.ParseHexColor("#34ebd8")
-		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
-	}
+	/*
+		for range time.Tick(time.Millisecond * 100) {
+			parsedColor, _ := colorx.ParseHexColor("#34ebd8")
+			createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
+		}
+	*/
 
 	fmt.Println("Starting server...")
 
