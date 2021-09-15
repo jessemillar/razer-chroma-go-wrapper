@@ -42,10 +42,10 @@ func flashColor(color string, flashCount string, flashDuration string, flashInte
 		// Use an anonymous func to allow a quick HTTP return to the client
 		go func() {
 			for i := 0; i < flashCountInt; i++ {
-				fmt.Printf("Setting color to %s for %f", color, flashDurationFloat)
+				fmt.Printf("Setting color to %s for %f\n", color, flashDurationFloat)
 				razer.SetColor(color)
 				time.Sleep(time.Duration(flashDurationFloat) * time.Second)
-				fmt.Printf("Setting color to %s for %f", "black", flashDurationFloat)
+				fmt.Printf("Setting color to %s for %f\n", "black", flashIntervalFloat)
 				razer.SetColor("000000")
 				time.Sleep(time.Duration(flashIntervalFloat) * time.Second)
 			}
