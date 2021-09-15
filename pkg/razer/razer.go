@@ -140,9 +140,12 @@ func FlashColor(color string, flashCount string, flashDuration string, flashInte
 				fmt.Printf("Setting color to %s for %d\n", color, time.Duration(flashDurationInt)*time.Millisecond)
 				SetColor(color)
 				time.Sleep(time.Duration(flashDurationInt) * time.Millisecond)
-				fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
-				SetColor("000000")
-				time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
+
+				if i < flashDurationInt-1 {
+					fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
+					SetColor("000000")
+					time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
+				}
 			}
 
 			SetColor("")
