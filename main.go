@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	systray.Run(onReady, onExit)
+	go systray.Run(onReady, onExit)
 
 	fmt.Println("Launching...")
 
