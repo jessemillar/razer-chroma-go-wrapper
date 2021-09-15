@@ -21,6 +21,8 @@ var echoServer *echo.Echo
 func main() {
 	fmt.Println("Launching...")
 
+	systray.Run(onReady, onExit)
+
 	err := utils.ReadConfigFile()
 	if err != nil {
 		log.Fatal("Could not read config file:", err.Error())
@@ -47,8 +49,6 @@ func main() {
 	echoServer.GET("/color/:color", handlers.SolidColor)
 	echoServer.GET("/flash/color/:color", handlers.FlashColor)
 	go echoServer.Logger.Fatal(echoServer.Start(":" + viper.GetString("server_port")))
-
-	systray.Run(onReady, onExit)
 }
 
 func onReady() {
