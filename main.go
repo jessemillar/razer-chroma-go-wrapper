@@ -86,10 +86,10 @@ func main() {
 }
 
 func changeColor(c echo.Context) error {
-	id := c.Param("color")
-	parsedColor, _ := colorx.ParseHexColor("#34ebd8")
+	color := c.Param("color")
+	parsedColor, _ := colorx.ParseHexColor("#" + color)
 	createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
-	return c.String(http.StatusOK, id)
+	return c.String(http.StatusOK, color)
 }
 
 func convertColor(r int, g int, b int) int {
