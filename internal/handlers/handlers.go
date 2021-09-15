@@ -34,7 +34,7 @@ func flashColor(color string, flashCount string, flashDuration string) {
 	flashDurationFloat := utils.StringToFloat(flashDuration, defaultFlashDuration)
 
 	if flashCountInt == 0 {
-		razer.SetColor("#" + color)
+		razer.SetColor(color)
 		fmt.Println("Setting color to " + color)
 	} else {
 		for i := 0; i < flashCountInt; i++ {

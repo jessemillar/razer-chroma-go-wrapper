@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/icza/gox/imagex/colorx"
@@ -68,7 +69,7 @@ func CreateApp() {
 }
 
 func SetColor(color string) {
-	parsedColor, _ := colorx.ParseHexColor("#" + color)
+	parsedColor, _ := colorx.ParseHexColor("#" + strings.Replace(color, "#", "", -1)) // Hack to make sure there's only one pound sign
 	CreateAndApplyEffect(utils.ConvertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 }
 
