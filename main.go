@@ -73,6 +73,8 @@ func main() {
 		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 	}
 
+	fmt.Println("Starting server...")
+
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
