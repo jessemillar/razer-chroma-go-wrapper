@@ -11,11 +11,11 @@ import (
 	"time"
 
 	"github.com/icza/gox/imagex/colorx"
+	"github.com/labstack/echo/v4"
 )
 
 const baseURL = "https://chromasdk.io:54236"
 
-var quit = make(chan bool)
 var sessionID int
 
 type appCreationRequest struct {
@@ -73,7 +73,11 @@ func main() {
 		createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 	}
 
-	<-quit // Keep the program alive until we kill it with a keyboard shortcut
+	e := echo.New()
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
+	})
+	e.Logger.Fatal(e.Start(":1323"))
 }
 
 func convertColor(r int, g int, b int) int {
