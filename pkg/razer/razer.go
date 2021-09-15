@@ -14,6 +14,7 @@ import (
 
 const baseURL = "https://chromasdk.io:54236"
 
+var defaultColor string
 var sessionID int
 
 // TODO Unexport functions that can be private
@@ -68,7 +69,15 @@ func CreateApp() {
 	sessionID = data.SessionID
 }
 
+func SetDefaultColor(color string) {
+	defaultColor = color
+}
+
 func SetColor(color string) {
+	if len(color) == 0 {
+		color = defaultColor
+	}
+
 	parsedColor, _ := colorx.ParseHexColor("#" + strings.Replace(color, "#", "", -1)) // Hack to make sure there's only one pound sign
 	CreateAndApplyEffect(utils.ConvertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 }
