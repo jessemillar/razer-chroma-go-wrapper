@@ -21,7 +21,7 @@ var echoServer *echo.Echo
 func main() {
 	fmt.Println("Launching...")
 
-	systray.Run(onReady, onExit)
+	go systray.Run(onReady, onExit)
 
 	err := utils.ReadConfigFile()
 	if err != nil {
