@@ -1,4 +1,4 @@
-package main
+package handlers
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func changeColor(c echo.Context) error {
+func ChangeColor(c echo.Context) error {
 	color := c.Param("color")
 	parsedColor, _ := colorx.ParseHexColor("#" + color)
 	createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))

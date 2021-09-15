@@ -5,11 +5,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/jessemillar/razer-chroma-go-wrapper/internal/handlers"
 	"github.com/jessemillar/razer-chroma-go-wrapper/pkg/razer"
 	"github.com/labstack/echo/v4"
 )
-
-const baseURL = "https://chromasdk.io:54236"
 
 var sessionID int
 
@@ -41,6 +40,6 @@ func main() {
 		// TODO Make a doc page for the default handler
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/color/:color", changeColor)
+	e.GET("/color/:color", handlers.ChangeColor)
 	e.Logger.Fatal(e.Start(":1323"))
 }

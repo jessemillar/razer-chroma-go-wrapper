@@ -1,47 +1,22 @@
 package razer
 
 import (
-	"bytes"
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/jessemillar/razer-chroma-go-wrapper/internal/utils"
 )
 
-func MakeRequest(method string, url string, body []byte) (string, error) {
-	/*
-		fmt.Println("URL:", url)
-		fmt.Println("Method:", method)
-		fmt.Println("Body:", string(body))
-	*/
-
-	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
-	req.Header.Set("Content-Type", "application/json")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
-	}
-
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	bodyString := string(bodyBytes)
-	// fmt.Println("Response:", bodyString)
-
-	return bodyString, nil
-}
+const baseURL = "https://chromasdk.io:54236"
 
 func PingHeartbeat() {
-	// TODO Make a way to end this
 	for range time.Tick(time.Second * 1) {
 		// Only ping if we have a session ID
 		if sessionID > 0 {
-			_, err := makeRequest(http.MethodPut, getSessionURL()+"/heartbeat", nil)
+			_, err := utils.MakeRequest(http.MethodPut, GetSessionURL()+"/heartbeat", nil)
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -73,7 +48,7 @@ func CreateApp() {
 		Category: "application",
 	}
 
-	resp, err := makeRequest(http.MethodPost, baseURL+"/razer/chromasdk", structToBytes(app))
+	resp, err := utils.MakeRequest(http.MethodPost, baseURL+"/razer/chromasdk", utils.StructToBytes(app))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -95,12 +70,12 @@ func CreateAndApplyEffect(color int) {
 		},
 	}
 
-	effectID := createEffect(effect)
-	applyEffect(effectID)
+	effectID := CreateEffect(effect)
+	ApplyEffect(effectID)
 }
 
 func CreateEffect(effect effectCreationRequest) string {
-	resp, err := makeRequest(http.MethodPost, getSessionURL()+"/chromalink", structToBytes(effect))
+	resp, err := utils.MakeRequest(http.MethodPost, GetSessionURL()+"/chromalink", utils.StructToBytes(effect))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -119,7 +94,7 @@ func ApplyEffect(effectID string) {
 		ID: effectID,
 	}
 
-	_, err := makeRequest(http.MethodPut, getSessionURL()+"/effect", structToBytes(requestBody))
+	_, err := utils.MakeRequest(http.MethodPut, GetSessionURL()+"/effect", utils.StructToBytes(requestBody))
 	if err != nil {
 		log.Fatalln(err)
 	}
