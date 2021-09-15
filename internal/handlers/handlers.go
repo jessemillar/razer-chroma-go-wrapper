@@ -28,12 +28,12 @@ func FlashColor(c echo.Context) error {
 
 func flashColor(color string, flashCount string, flashDuration string, flashInterval string) {
 	defaultFlashCount := 5
-	defaultFlashDuration := float64(1)
-	defaultFlashInterval := 1.5
+	defaultFlashDuration := 1000
+	defaultFlashInterval := 1500
 
 	flashCountInt := utils.StringToInt(flashCount, defaultFlashCount)
-	flashDurationFloat := utils.StringToFloat(flashDuration, defaultFlashDuration)
-	flashIntervalFloat := utils.StringToFloat(flashInterval, defaultFlashInterval)
+	flashDurationInt := utils.StringToInt(flashDuration, defaultFlashDuration)
+	flashIntervalInt := utils.StringToInt(flashInterval, defaultFlashInterval)
 
 	if flashCountInt == 0 {
 		razer.SetColor(color)
@@ -42,12 +42,12 @@ func flashColor(color string, flashCount string, flashDuration string, flashInte
 		// Use an anonymous func to allow a quick HTTP return to the client
 		go func() {
 			for i := 0; i < flashCountInt; i++ {
-				fmt.Printf("Setting color to %s for %d\n", color, time.Duration(flashDurationFloat)*time.Second)
+				fmt.Printf("Setting color to %s for %d\n", color, time.Duration(flashDurationInt)*time.Millisecond)
 				razer.SetColor(color)
-				time.Sleep(time.Duration(flashDurationFloat) * time.Second)
-				fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalFloat)*time.Second)
+				time.Sleep(time.Duration(flashDurationInt) * time.Millisecond)
+				fmt.Printf("Setting color to %s for %d\n", "black", time.Duration(flashIntervalInt)*time.Millisecond)
 				razer.SetColor("000000")
-				time.Sleep(time.Duration(flashIntervalFloat) * time.Second)
+				time.Sleep(time.Duration(flashIntervalInt) * time.Millisecond)
 			}
 		}()
 	}

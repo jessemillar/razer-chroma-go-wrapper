@@ -31,15 +31,6 @@ func StringToInt(inputString string, defaultValue int) int {
 	return i
 }
 
-func StringToFloat(inputString string, defaultValue float64) float64 {
-	f, err := strconv.ParseFloat(inputString, 32)
-	if err != nil {
-		return defaultValue
-	}
-
-	return f
-}
-
 func MakeRequest(method string, url string, body []byte) (string, error) {
 	/*
 		fmt.Println("URL:", url)
