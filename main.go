@@ -10,28 +10,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var sessionID int
-
 func main() {
 	fmt.Println("Launching...")
 
 	razer.CreateApp()
-
 	go razer.PingHeartbeat()
 
-	fmt.Println("Got session", sessionID)
-
 	// TODO Find a better way to do this instead of sleeping
-	fmt.Println("Waiting...")
-	time.Sleep(2 * time.Second)
-	fmt.Println("Done waiting")
-
-	/*
-		for range time.Tick(time.Millisecond * 100) {
-			parsedColor, _ := colorx.ParseHexColor("#34ebd8")
-			createAndApplyEffect(convertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
-		}
-	*/
+	fmt.Println("Waiting for Razer session...")
+	time.Sleep(3 * time.Second)
 
 	fmt.Println("Starting server...")
 
@@ -40,6 +27,7 @@ func main() {
 		// TODO Make a doc page for the default handler
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/color/:color", handlers.ChangeColor)
+	e.GET("/color/:color", handlers.SolidColor)
+	e.GET("/flash/color/:color", handlers.FlashColor)
 	e.Logger.Fatal(e.Start(":1323"))
 }

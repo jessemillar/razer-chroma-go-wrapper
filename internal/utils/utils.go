@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func ConvertColor(r int, g int, b int) int {
@@ -19,6 +20,24 @@ func StructToBytes(theStruct interface{}) []byte {
 	}
 
 	return resultString
+}
+
+func StringToInt(inputString string, defaultValue int) int {
+	i, err := strconv.Atoi(inputString)
+	if err != nil {
+		return defaultValue
+	}
+
+	return i
+}
+
+func StringToFloat(inputString string, defaultValue float64) float64 {
+	f, err := strconv.ParseFloat(inputString, 32)
+	if err != nil {
+		return defaultValue
+	}
+
+	return f
 }
 
 func MakeRequest(method string, url string, body []byte) (string, error) {

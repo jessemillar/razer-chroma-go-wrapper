@@ -7,10 +7,15 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/icza/gox/imagex/colorx"
 	"github.com/jessemillar/razer-chroma-go-wrapper/internal/utils"
 )
 
 const baseURL = "https://chromasdk.io:54236"
+
+var sessionID int
+
+// TODO Unexport functions that can be private
 
 func PingHeartbeat() {
 	for range time.Tick(time.Second * 1) {
@@ -60,6 +65,11 @@ func CreateApp() {
 	}
 
 	sessionID = data.SessionID
+}
+
+func SetColor(color string) {
+	parsedColor, _ := colorx.ParseHexColor("#" + color)
+	CreateAndApplyEffect(utils.ConvertColor(int(parsedColor.R), int(parsedColor.G), int(parsedColor.B)))
 }
 
 func CreateAndApplyEffect(color int) {
