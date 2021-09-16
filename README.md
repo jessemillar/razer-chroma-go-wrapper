@@ -16,8 +16,8 @@ The Razer Chroma HTTP Wrapper is a system tray application that exists to wrap t
 > All endpoints are HTTP GET requests for scripting simplicity. Params embedded in the URI are required, anything after `?` are optional.
 
 ```
-https://localhost:1323/color/be2be3
-https://localhost:1323/flash/color/ff0000?count=3&duration=1000&interval=500
+http://localhost:1323/color/be2be3
+http://localhost:1323/flash/color/ff0000?count=3&duration=1000&interval=500
 ```
 
 ## Configuration
