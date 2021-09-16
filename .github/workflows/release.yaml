@@ -19,7 +19,7 @@ jobs:
     - name: Get dependencies
       run: go get -v -t -d ./...
 
-    - run: env GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o razer-chroma-http-wrapper-windows-amd64
+    - run: env GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o razer-chroma-http-wrapper-windows-amd64.exe
 
     - name: Get Version Number
       id: get_version_number

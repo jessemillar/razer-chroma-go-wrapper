@@ -68,5 +68,8 @@ func ReadConfigFile() error {
 		return err
 	}
 
+	viper.SetDefault("server_port", "1323")
+	viper.SetDefault("default_color", "#bada55")
+
 	return nil
 }

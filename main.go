@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -17,19 +16,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-const version = "0.0.2"
+const version = "0.0.3"
 
 var echoServer *echo.Echo
 
 func main() {
-	versionFlag := flag.Bool("v", false, "print version and exit")
-	flag.Parse()
-
-	if *versionFlag {
-		fmt.Println(version)
-		return
-	}
-
 	fmt.Println("Launching...")
 
 	err := utils.ReadConfigFile()
@@ -67,14 +58,15 @@ func onReady() {
 	systray.SetIcon(icon.Data)
 	systray.SetTitle("Razer Chroma HTTP Wrapper")
 	systray.SetTooltip("Razer Chroma HTTP Wrapper")
-	mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
+	systray.AddMenuItem("Version v"+version, "Version v"+version)
+	quit := systray.AddMenuItem("Quit", "Quit the whole app")
 
 	// Sets the icon of a menu item. Only available on Mac and Windows.
 	// TODO Set this to a custom icon
-	mQuit.SetIcon(icon.Data)
+	quit.SetIcon(icon.Data)
 
 	go func() {
-		<-mQuit.ClickedCh
+		<-quit.ClickedCh
 		fmt.Println("Requesting quit")
 		systray.Quit()
 		fmt.Println("Finished quitting")
