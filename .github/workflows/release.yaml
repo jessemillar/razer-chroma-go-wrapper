@@ -38,7 +38,7 @@ jobs:
         prerelease: false
 
     - name: Zip Release Contents
-      run: mkdir razer-chroma-http-wrapper-windows-amd64 && mv config.toml razer-chroma-http-wrapper-windows-amd64 && mv razer-chroma-http-wrapper-windows-amd64.exe razer-chroma-http-wrapper-windows-amd64 && zip -r razer-chroma-http-wrapper-windows-amd64.zip razer-chroma-http-wrapper-windows-amd64
+      run: mkdir release && mv config.toml release && mv razer-chroma-http-wrapper-windows-amd64.exe release && cd release && zip -r ../release.zip *
       shell: bash
 
     - name: Upload Windows Release Asset
@@ -48,5 +48,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_name: razer-chroma-http-wrapper-windows-amd64.zip
-        asset_path: ./razer-chroma-http-wrapper-windows-amd64.zip
+        asset_path: ./release.zip
         asset_content_type: application/binary-x

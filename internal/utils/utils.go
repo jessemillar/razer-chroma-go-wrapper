@@ -59,17 +59,13 @@ func MakeRequest(method string, url string, body []byte) (string, error) {
 	return bodyString, nil
 }
 
-func ReadConfigFile() error {
+func ReadConfigFile() {
 	viper.SetConfigName("config") // name of config file (without extension)
 	viper.SetConfigType("toml")   // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath(".")      // optionally look for config in the working directory
-	err := viper.ReadInConfig()
-	if err != nil {
-		return err
-	}
 
 	viper.SetDefault("server_port", "1323")
 	viper.SetDefault("default_color", "#bada55")
 
-	return nil
+	viper.ReadInConfig()
 }

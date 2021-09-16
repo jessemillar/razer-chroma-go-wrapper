@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
@@ -16,17 +15,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-const version = "0.0.4"
+const version = "0.0.5"
 
 var echoServer *echo.Echo
 
 func main() {
 	fmt.Println("Launching...")
 
-	err := utils.ReadConfigFile()
-	if err != nil {
-		log.Fatal("Could not read config file:", err.Error())
-	}
+	utils.ReadConfigFile()
 
 	razer.CreateApp()
 	// TODO Kill this as part of cleanup
