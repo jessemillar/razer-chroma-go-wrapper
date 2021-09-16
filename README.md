@@ -6,27 +6,26 @@ The Razer Chroma HTTP Wrapper is a system tray application that exists to wrap t
 
 ## Quickstart
 
-> TODO Provide links to the binary
-
-1. Download the binary
-1. Run the binary
-1. Hit one of the endpoints listed below
+1. Download the [latest release](https://github.com/jessemillar/razer-chroma-http-wrapper/releases/latest)
+1. Extract the zip file
+1. Run the binary (if necessary, tell Windows it's okay to run)
+1. Visit one of the endpoints listed below in your web browser
 
 ## Endpoints
 
 > All endpoints are HTTP GET requests for scripting simplicity. Params embedded in the URI are required, anything after `?` are optional.
 
 ```
-https://localhost:<port>/color/<hex-color>
-https://localhost:<port>/flash/color/<hex-color>?count=3&duration=1000&interval=500
+https://localhost:1323/color/be2be3
+https://localhost:1323/flash/color/ff0000?count=3&duration=1000&interval=500
 ```
 
 ## Configuration
 
-Configuration is handled by the [`config.toml`](./config.toml) file. This file needs to be in the same directory as the `razer-chroma-http-wrapper` executable. Supported configuration values are defined below:
+Configuration is handled by the optional [`config.toml`](./config.toml) file. This file, if present, needs to be in the same directory as `razer-chroma-http-wrapper.exe`. Supported configuration values are defined below:
 
-- `server_port`: An integer value specifying which port to listen on for HTTP GET requests
-- `default_color`: A hex color value that the Razer peripheral defaults to when not currently displaying an alert
+- `server_port` (defaults to `1323`): An integer value specifying which port to listen on for HTTP GET requests
+- `default_color` (defaults to `#bada55`): A hex color value that the Razer peripheral defaults to when not currently displaying an alert
 
 ## Compatibility
 
