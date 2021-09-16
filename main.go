@@ -15,7 +15,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const version = "0.0.5"
+const version = "0.0.6"
 
 var echoServer *echo.Echo
 
@@ -54,12 +54,8 @@ func onReady() {
 	systray.SetIcon(icon.Data)
 	systray.SetTitle("Razer Chroma HTTP Wrapper")
 	systray.SetTooltip("Razer Chroma HTTP Wrapper")
-	systray.AddMenuItem("Version v"+version, "Version v"+version)
-	quit := systray.AddMenuItem("Quit", "Quit the whole app")
-
-	// Sets the icon of a menu item. Only available on Mac and Windows.
-	// TODO Set this to a custom icon
-	quit.SetIcon(icon.Data)
+	systray.AddMenuItem("Razer Chroma HTTP Wrapper v"+version, "Razer Chroma HTTP Wrapper v"+version)
+	quit := systray.AddMenuItem("Quit", "Quit Razer Chroma HTTP Wrapper")
 
 	go func() {
 		<-quit.ClickedCh
