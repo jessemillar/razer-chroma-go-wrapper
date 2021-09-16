@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/jessemillar/razer-chroma-go-wrapper/pkg/razer"
+	"github.com/jessemillar/razer-chroma-http-wrapper/pkg/razer"
 	"github.com/labstack/echo/v4"
 )
 

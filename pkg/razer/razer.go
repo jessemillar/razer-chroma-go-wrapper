@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/icza/gox/imagex/colorx"
-	"github.com/jessemillar/razer-chroma-go-wrapper/internal/utils"
+	"github.com/jessemillar/razer-chroma-http-wrapper/internal/utils"
 )
 
 const baseURL = "https://chromasdk.io:54236"

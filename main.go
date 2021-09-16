@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,16 +10,26 @@ import (
 
 	"github.com/getlantern/systray"
 	"github.com/getlantern/systray/example/icon"
-	"github.com/jessemillar/razer-chroma-go-wrapper/internal/handlers"
-	"github.com/jessemillar/razer-chroma-go-wrapper/internal/utils"
-	"github.com/jessemillar/razer-chroma-go-wrapper/pkg/razer"
+	"github.com/jessemillar/razer-chroma-http-wrapper/internal/handlers"
+	"github.com/jessemillar/razer-chroma-http-wrapper/internal/utils"
+	"github.com/jessemillar/razer-chroma-http-wrapper/pkg/razer"
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 )
 
+const version = "0.0.2"
+
 var echoServer *echo.Echo
 
 func main() {
+	versionFlag := flag.Bool("v", false, "print version and exit")
+	flag.Parse()
+
+	if *versionFlag {
+		fmt.Println(version)
+		return
+	}
+
 	fmt.Println("Launching...")
 
 	err := utils.ReadConfigFile()
