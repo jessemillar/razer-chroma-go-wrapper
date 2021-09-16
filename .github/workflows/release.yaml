@@ -23,7 +23,7 @@ jobs:
 
     - name: Get Version Number
       id: get_version_number
-      run: echo "::set-output name=version::$(cat main.go | grep \"const version\" | cut -d'\"' -f 2)"
+      run: echo "::set-output name=version::$(cat main.go | grep 'const version' | cut -d'"' -f 2)"
       shell: bash
 
     - name: Create Release
