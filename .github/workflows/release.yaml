@@ -21,9 +21,6 @@ jobs:
 
     - run: env GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o razer-chroma-http-wrapper-windows-amd64
 
-    - name: Test
-      run: go test -v ./...
-
     - name: Get Version Number
       id: get_version_number
       run: echo "::set-output name=version::$(cat main.go | grep \"const version\" | cut -d'\"' -f 2)"
