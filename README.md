@@ -17,15 +17,19 @@ The Razer Chroma HTTP Wrapper is a system tray application that exists to wrap t
 
 ```
 http://localhost:1323/color/be2be3
+http://localhost:1323/color/pink (if "pink" is configured in custom_colors)
 http://localhost:1323/flash/color/ff0000?count=3&duration=1000&interval=500
+http://localhost:1323/flash/color/success?count=3&duration=1000&interval=500 (if "success" is configured in color_aliases and points to a valid color)
 ```
 
 ## Configuration
 
-Configuration is handled by the optional [`config.toml`](./config.toml) file. This file, if present, needs to be in the same directory as `razer-chroma-http-wrapper.exe`. Supported configuration values are defined below:
+Configuration is handled by the optional [`config.toml`](./config.toml) file. This file, if present, needs to be in the same directory as `razer-chroma-http-wrapper.exe`. See `config.toml` in this repo for an example. Supported configuration values are defined below:
 
 - `server_port` (defaults to `1323`): An integer value specifying which port to listen on for HTTP GET requests
 - `default_color` (defaults to `#bada55`): A hex color value that the Razer peripheral defaults to when not currently displaying an alert
+- `custom_colors` (optional): A key/value object containing custom, named colors for easier referencing
+- `color_aliases` (optional): A key/value object containing alternative names for colors defined in `custom_colors`
 
 ## Compatibility
 
