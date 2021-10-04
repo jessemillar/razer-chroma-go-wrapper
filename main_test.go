@@ -11,7 +11,7 @@ func TestCustomColor(t *testing.T) {
 	utils.ReadConfigFile()
 	t.Log(viper.GetString("default_color"))
 	color := utils.TranslateCustomColor("pink")
-	if color != "#1A535C" {
+	if color != "#f3b8b6" {
 		t.Log(color)
 		t.Fail()
 	}

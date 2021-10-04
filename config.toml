@@ -1,15 +1,15 @@
 server_port = "1323"
 default_color = "#4ECDC4"
-custom_colors = [
-	{pink = "#f3b8b6"},
-	{dark_green = "#1A535C"},
-	{light_green = "#4ECDC4"},
-	{white = "#F7FFF7"},
-	{red = "#FF6B6B"},
-	{yellow = "#FFE66D"},
-]
-color_aliases = [
-	{success = "light_green"},
-	{warning = "red"},
-	{danger = "yellow"},
-]
+custom_colors = {
+	pink = "#f3b8b6",
+	dark_green = "#1A535C",
+	light_green = "#4ECDC4",
+	white = "#F7FFF7",
+	red = "#FF6B6B",
+	yellow = "#FFE66D"
+}
+color_aliases = {
+	success = "light_green",
+	warning = "red",
+	danger = "yellow"
+}
