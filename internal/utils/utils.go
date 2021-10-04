@@ -3,6 +3,7 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,6 +11,22 @@ import (
 
 	"github.com/spf13/viper"
 )
+
+// TranslateCustomColor accepts a string and checks if that string is a custom color defined in our config
+func TranslateCustomColor(color string) string {
+	customColors := viper.GetStringMapString("custom_colors")
+	fmt.Println(customColors)
+	if val, ok := customColors[color]; ok {
+		return val
+	}
+
+	colorAliases := viper.GetStringMapString("color_aliases")
+	if val, ok := colorAliases[color]; ok {
+		return val
+	}
+
+	return color
+}
 
 func ConvertColor(r int, g int, b int) int {
 	return ((b << 16) | (g << 8) | (r << 0))
@@ -67,5 +84,8 @@ func ReadConfigFile() {
 	viper.SetDefault("server_port", "1323")
 	viper.SetDefault("default_color", "#bada55")
 
-	viper.ReadInConfig()
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
