@@ -1,0 +1,7 @@
+custom_colors = {
+	pink = "#f3b8b6",
+	light_green = "#4ECDC4"
+}
+color_aliases = {
+	success = "light_green"
+}
