@@ -21,8 +21,10 @@ func TranslateCustomColor(color string) string {
 	}
 
 	colorAliases := viper.GetStringMapString("color_aliases")
-	if val, ok := colorAliases[color]; ok {
-		return val
+	if alias, ok := colorAliases[color]; ok {
+		if val, ok := customColors[alias]; ok {
+			return val
+		}
 	}
 
 	return color

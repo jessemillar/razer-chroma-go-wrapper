@@ -10,7 +10,6 @@ func TestCustomColor(t *testing.T) {
 	utils.ReadConfigFile()
 	color := utils.TranslateCustomColor("pink")
 	if color != "#f3b8b6" {
-		t.Log(color)
 		t.Fail()
 	}
 }
@@ -19,7 +18,6 @@ func TestCustomColorAlias(t *testing.T) {
 	utils.ReadConfigFile()
 	color := utils.TranslateCustomColor("success")
 	if color != "#4ECDC4" {
-		t.Log(color)
 		t.Fail()
 	}
 }
